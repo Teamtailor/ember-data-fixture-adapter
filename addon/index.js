@@ -4,7 +4,6 @@ import { assert } from '@ember/debug';
 import EmberArray from '@ember/array';
 import { run } from '@ember/runloop';
 import RSVP from 'rsvp';
-import { copy } from '@ember/object/internals';
 
 var indexOf = Array.prototype.indexOf && function(array, item) {
   return array.indexOf(item);
@@ -313,7 +312,8 @@ export default DS.Adapter.extend({
     var adapter = this;
 
     return new RSVP.Promise(function(resolve) {
-      var value = copy(callback.call(context), true);
+      // var value = copy(callback.call(context), true);
+      var value = callback.call(context)
       if (get(adapter, 'simulateRemoteResponse')) {
         // Schedule with setTimeout
         run.later(null, resolve, value, get(adapter, 'latency'));
