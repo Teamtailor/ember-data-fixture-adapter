@@ -98,4 +98,6 @@ export function async(callback, timeout) {
   };
 }
 
-setResolver(resolver);
+setApplication(Application.create(config.APP));
+
+start();

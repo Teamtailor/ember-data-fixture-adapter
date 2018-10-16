@@ -14,7 +14,8 @@ you switch to using an AJAX stubbing library like
 **This addon is currently not maintained by the Ember Data team.**
 However, we will be happy to merge documentation fixes.
 
-## Installation
+Installation
+------------------------------------------------------------------------------
 
 You can use it as an addon using `ember install ember-data-fixture-adapter`.
 
@@ -58,20 +59,27 @@ export { default } from 'ember-data-fixture-adapter';
 
 * `git clone` this repository
 * `npm install`
-* `bower install`
 
-## Running
+### Linting
 
-* `ember server`
-* Visit your app at http://localhost:4200.
+* `npm run lint:hbs`
+* `npm run lint:js`
+* `npm run lint:js -- --fix`
 
-## Running Tests
+### Running tests
+
+* `ember test` – Runs the test suite on the current Ember version
+* `ember test --server` – Runs the test suite in "watch mode"
+* `ember try:each` – Runs the test suite against multiple Ember versions
+
+### Running the dummy application
 
 * `ember test`
 * `ember test --server`
 
-## Building
+For more information on using ember-cli, visit [https://ember-cli.com/](https://ember-cli.com/).
 
-* `ember build`
+License
+------------------------------------------------------------------------------
 
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+This project is licensed under the [MIT License](LICENSE.md).
