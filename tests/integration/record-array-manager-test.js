@@ -1,12 +1,11 @@
-import Ember from 'ember';
+import { run } from '@ember/runloop';
 import DS from 'ember-data';
 import FixtureAdapter from 'ember-data-fixture-adapter';
-import {setupStore, async} from 'dummy/tests/test-helper';
+import { setupStore, async } from 'dummy/tests/test-helper';
 import QUnit from 'qunit';
-import {module, test} from 'qunit';
+import { module, test } from 'qunit';
 
 var store, env;
-var run = Ember.run;
 
 var Person = DS.Model.extend({
   name: DS.attr('string'),
@@ -116,7 +115,7 @@ test("destroying the store correctly cleans everything up", function(assert) {
   assert.ok(filterd2.contains(person));
   assert.ok(!adapterPopulated.contains(person));
 
-  Ember.run(filterd2, filterd2.destroy);
+  run(filterd2, filterd2.destroy);
 
   assert.ok(filterd.contains(person));
   assert.ok(!filterd2.contains(person));
@@ -124,7 +123,7 @@ test("destroying the store correctly cleans everything up", function(assert) {
 
   assert.equal(filterd2Summary.called.length, 1);
 
-  Ember.run(manager, manager.destroy);
+  run(manager, manager.destroy);
 
   assert.ok(!filterd.contains(person));
   assert.ok(!filterd2.contains(person));

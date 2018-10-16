@@ -1,13 +1,14 @@
+import { hash } from 'rsvp';
+import { run } from '@ember/runloop';
+import { get } from '@ember/object';
 import DS from 'ember-data';
 import FixtureAdapter from 'ember-data-fixture-adapter';
-import {setupStore, async} from 'dummy/tests/test-helper';
+import { setupStore, async } from 'dummy/tests/test-helper';
 import QUnit from 'qunit';
-import {module, test} from 'qunit';
+import { module, test } from 'qunit';
 import Ember from 'ember';
 
-var get = Ember.get;
 var env, Person, Phone;
-var run = Ember.run;
 
 module("integration/adapter/fixture_adapter - FixtureAdapter", {
   setup: function() {
@@ -77,7 +78,7 @@ test("should load data for a type asynchronously when it is requested", function
       assert.equal(get(ebryn, 'isLoaded'), true, "data loads asynchronously");
       assert.equal(get(ebryn, 'height'), 70, "data from fixtures is loaded correctly");
 
-      return Ember.RSVP.hash({ ebryn: ebryn, wycats: env.store.findRecord('person', 'wycats') });
+      return hash({ ebryn: ebryn, wycats: env.store.findRecord('person', 'wycats') });
     }, 1000)).then(async(function(records) {
       assert.equal(get(records.wycats, 'isLoaded'), true, "subsequent requests for records are returned asynchronously");
       assert.equal(get(records.wycats, 'height'), 65, "subsequent requested records contain correct information");
@@ -98,7 +99,7 @@ test("should load data asynchronously at the end of the runloop when simulateRem
 
   var wycats;
 
-  Ember.run(function() {
+  run(function() {
     env.store.findRecord('person', 'wycats').then(function(person) {
       wycats = person;
     });
@@ -325,7 +326,7 @@ test("copies fixtures instead of passing the direct reference", function(assert)
 
   var done = assert.async();
 
-  Ember.run(function() {
+  run(function() {
     env.registry.register('adapter:person', PersonAdapter);
   });
 

@@ -1,3 +1,5 @@
+import { run } from '@ember/runloop';
+import RSVP from 'rsvp';
 import QUnit from 'qunit';
 import DS from 'ember-data';
 import Ember from 'ember';
@@ -51,7 +53,7 @@ export function setupStore(options) {
 }
 
 QUnit.begin(function(){
-  Ember.RSVP.configure('onerror', function(reason) {
+  RSVP.configure('onerror', function(reason) {
     // only print error messages if they're exceptions;
     // otherwise, let a future turn of the event loop
     // handle the error.
@@ -92,7 +94,7 @@ export function async(callback, timeout) {
     QUnit.start();
 
     var args = arguments;
-    return Ember.run(function() {
+    return run(function() {
       return callback.apply(this, args);
     });
   };

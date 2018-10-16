@@ -1,9 +1,11 @@
+import { assert } from '@ember/debug';
+import { Promise, resolve } from 'rsvp';
+import { run, next } from '@ember/runloop';
 import DS from 'ember-data';
 import FixtureAdapter from 'ember-data-fixture-adapter';
 import QUnit from 'qunit';
-import {module, test} from 'qunit';
-import Ember from 'ember';
-import {setupStore} from 'dummy/tests/test-helper';
+import { module, test } from 'qunit';
+import { setupStore } from 'dummy/tests/test-helper';
 
 var store, env;
 
@@ -11,8 +13,6 @@ var Person = DS.Model.extend({
   name: DS.attr('string'),
   cars: DS.hasMany('car')
 });
-
-var run = Ember.run;
 
 Person.toString = function() { return "Person"; };
 
@@ -62,8 +62,8 @@ test("destroying record during find doesn't cause error", function(assert) {
 
   var TestAdapter = FixtureAdapter.extend({
     findRecord: function() {
-      return new Ember.RSVP.Promise(function(resolve, reject) {
-        Ember.run.next(function() {
+      return new Promise(function(resolve, reject) {
+        next(function() {
           store.unloadAll(type);
           reject();
         });
@@ -89,7 +89,7 @@ test("find calls do not resolve when the store is destroyed", function(assert) {
   var TestAdapter = FixtureAdapter.extend({
     findRecord: function() {
       store.destroy();
-      Ember.RSVP.resolve(null);
+      resolve(null);
     }
   });
 
@@ -100,7 +100,7 @@ test("find calls do not resolve when the store is destroyed", function(assert) {
   var id = 1;
 
   store.push = function() {
-    Ember.assert("The test should have destroyed the store by now", store.get("isDestroyed"));
+    assert("The test should have destroyed the store by now", store.get("isDestroyed"));
 
     throw new Error("We shouldn't be pushing data into the store when it is destroyed");
   };
